@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.easyrent.mapper.OrderformMapper" >
+  <resultMap id="BaseResultMap" type="com.easyrent.pojo.Orderform" >
+    <id column="orderid" property="orderid" jdbcType="CHAR" />
+    <result column="account" property="account" jdbcType="CHAR" />
+    <result column="houseid" property="houseid" jdbcType="CHAR" />
+    <result column="checkintime" property="checkintime" jdbcType="TIMESTAMP" />
+    <result column="days" property="days" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="conditional" property="conditional" jdbcType="INTEGER" />
+    <result column="occupants" property="occupants" jdbcType="VARCHAR" />
+    <result column="phonenum" property="phonenum" jdbcType="CHAR" />
+    <result column="housename" property="housename" jdbcType="VARCHAR" />
+    <result column="usercancelcondition" property="usercancelcondition" jdbcType="INTEGER" />
+    <result column="ownercancelconditon" property="ownercancelconditon" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    orderid, account, houseid, checkintime, days, price, conditional, occupants, phonenum, 
+    housename, usercancelcondition, ownercancelconditon
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.easyrent.pojo.OrderformExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from orderform
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from orderform
+    where orderid = #{orderid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from orderform
+    where orderid = #{orderid,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.easyrent.pojo.OrderformExample" >
+    delete from orderform
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.easyrent.pojo.Orderform" >
+    insert into orderform (orderid, account, houseid, 
+      checkintime, days, price, 
+      conditional, occupants, phonenum, 
+      housename, usercancelcondition, ownercancelconditon
+      )
+    values (#{orderid,jdbcType=CHAR}, #{account,jdbcType=CHAR}, #{houseid,jdbcType=CHAR}, 
+      #{checkintime,jdbcType=TIMESTAMP}, #{days,jdbcType=INTEGER}, #{price,jdbcType=DECIMAL}, 
+      #{conditional,jdbcType=INTEGER}, #{occupants,jdbcType=VARCHAR}, #{phonenum,jdbcType=CHAR}, 
+      #{housename,jdbcType=VARCHAR}, #{usercancelcondition,jdbcType=INTEGER}, #{ownercancelconditon,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.easyrent.pojo.Orderform" >
+    insert into orderform
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        orderid,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="houseid != null" >
+        houseid,
+      </if>
+      <if test="checkintime != null" >
+        checkintime,
+      </if>
+      <if test="days != null" >
+        days,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="conditional != null" >
+        conditional,
+      </if>
+      <if test="occupants != null" >
+        occupants,
+      </if>
+      <if test="phonenum != null" >
+        phonenum,
+      </if>
+      <if test="housename != null" >
+        housename,
+      </if>
+      <if test="usercancelcondition != null" >
+        usercancelcondition,
+      </if>
+      <if test="ownercancelconditon != null" >
+        ownercancelconditon,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="orderid != null" >
+        #{orderid,jdbcType=CHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=CHAR},
+      </if>
+      <if test="houseid != null" >
+        #{houseid,jdbcType=CHAR},
+      </if>
+      <if test="checkintime != null" >
+        #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="days != null" >
+        #{days,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="conditional != null" >
+        #{conditional,jdbcType=INTEGER},
+      </if>
+      <if test="occupants != null" >
+        #{occupants,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenum != null" >
+        #{phonenum,jdbcType=CHAR},
+      </if>
+      <if test="housename != null" >
+        #{housename,jdbcType=VARCHAR},
+      </if>
+      <if test="usercancelcondition != null" >
+        #{usercancelcondition,jdbcType=INTEGER},
+      </if>
+      <if test="ownercancelconditon != null" >
+        #{ownercancelconditon,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.easyrent.pojo.OrderformExample" resultType="java.lang.Integer" >
+    select count(*) from orderform
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update orderform
+    <set >
+      <if test="record.orderid != null" >
+        orderid = #{record.orderid,jdbcType=CHAR},
+      </if>
+      <if test="record.account != null" >
+        account = #{record.account,jdbcType=CHAR},
+      </if>
+      <if test="record.houseid != null" >
+        houseid = #{record.houseid,jdbcType=CHAR},
+      </if>
+      <if test="record.checkintime != null" >
+        checkintime = #{record.checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.days != null" >
+        days = #{record.days,jdbcType=INTEGER},
+      </if>
+      <if test="record.price != null" >
+        price = #{record.price,jdbcType=DECIMAL},
+      </if>
+      <if test="record.conditional != null" >
+        conditional = #{record.conditional,jdbcType=INTEGER},
+      </if>
+      <if test="record.occupants != null" >
+        occupants = #{record.occupants,jdbcType=VARCHAR},
+      </if>
+      <if test="record.phonenum != null" >
+        phonenum = #{record.phonenum,jdbcType=CHAR},
+      </if>
+      <if test="record.housename != null" >
+        housename = #{record.housename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.usercancelcondition != null" >
+        usercancelcondition = #{record.usercancelcondition,jdbcType=INTEGER},
+      </if>
+      <if test="record.ownercancelconditon != null" >
+        ownercancelconditon = #{record.ownercancelconditon,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update orderform
+    set orderid = #{record.orderid,jdbcType=CHAR},
+      account = #{record.account,jdbcType=CHAR},
+      houseid = #{record.houseid,jdbcType=CHAR},
+      checkintime = #{record.checkintime,jdbcType=TIMESTAMP},
+      days = #{record.days,jdbcType=INTEGER},
+      price = #{record.price,jdbcType=DECIMAL},
+      conditional = #{record.conditional,jdbcType=INTEGER},
+      occupants = #{record.occupants,jdbcType=VARCHAR},
+      phonenum = #{record.phonenum,jdbcType=CHAR},
+      housename = #{record.housename,jdbcType=VARCHAR},
+      usercancelcondition = #{record.usercancelcondition,jdbcType=INTEGER},
+      ownercancelconditon = #{record.ownercancelconditon,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.easyrent.pojo.Orderform" >
+    update orderform
+    <set >
+      <if test="account != null" >
+        account = #{account,jdbcType=CHAR},
+      </if>
+      <if test="houseid != null" >
+        houseid = #{houseid,jdbcType=CHAR},
+      </if>
+      <if test="checkintime != null" >
+        checkintime = #{checkintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="days != null" >
+        days = #{days,jdbcType=INTEGER},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="conditional != null" >
+        conditional = #{conditional,jdbcType=INTEGER},
+      </if>
+      <if test="occupants != null" >
+        occupants = #{occupants,jdbcType=VARCHAR},
+      </if>
+      <if test="phonenum != null" >
+        phonenum = #{phonenum,jdbcType=CHAR},
+      </if>
+      <if test="housename != null" >
+        housename = #{housename,jdbcType=VARCHAR},
+      </if>
+      <if test="usercancelcondition != null" >
+        usercancelcondition = #{usercancelcondition,jdbcType=INTEGER},
+      </if>
+      <if test="ownercancelconditon != null" >
+        ownercancelconditon = #{ownercancelconditon,jdbcType=INTEGER},
+      </if>
+    </set>
+    where orderid = #{orderid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.easyrent.pojo.Orderform" >
+    update orderform
+    set account = #{account,jdbcType=CHAR},
+      houseid = #{houseid,jdbcType=CHAR},
+      checkintime = #{checkintime,jdbcType=TIMESTAMP},
+      days = #{days,jdbcType=INTEGER},
+      price = #{price,jdbcType=DECIMAL},
+      conditional = #{conditional,jdbcType=INTEGER},
+      occupants = #{occupants,jdbcType=VARCHAR},
+      phonenum = #{phonenum,jdbcType=CHAR},
+      housename = #{housename,jdbcType=VARCHAR},
+      usercancelcondition = #{usercancelcondition,jdbcType=INTEGER},
+      ownercancelconditon = #{ownercancelconditon,jdbcType=INTEGER}
+    where orderid = #{orderid,jdbcType=CHAR}
+  </update>
+</mapper>

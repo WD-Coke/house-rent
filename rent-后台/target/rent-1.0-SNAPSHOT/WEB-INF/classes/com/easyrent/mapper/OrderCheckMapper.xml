@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.easyrent.mapper.OrderCheckMapper">
+
+    <update id="setHouseState">
+        UPDATE house set housestate= 1 WHERE houseid IN(
+        SELECT DISTINCT houseid
+        FROM orderform WHERE DATE_FORMAT(NOW(),'%Y-%m-%d')>=DATE_ADD(DATE_FORMAT(checkintime,'%Y-%m-%d'),INTERVAL days day) and conditional = 1) AND housestate != 3
+    </update>
+
+
+    <update id="setOrderState">
+      UPDATE orderform o3 SET o3.conditional=5
+      WHERE o3.orderid IN
+      (SELECT * FROM
+      (SELECT o1.orderid FROM orderform o1
+       WHERE DATE_FORMAT(NOW(),'%Y-%m-%d')>=DATE_ADD(DATE_FORMAT(o1.checkintime,'%Y-%m-%d'),
+       INTERVAL o1.days day) and o1.conditional = 1)
+       id1)
+    </update>
+
+</mapper>

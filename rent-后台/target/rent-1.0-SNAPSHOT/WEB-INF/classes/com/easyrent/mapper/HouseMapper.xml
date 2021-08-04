@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.easyrent.mapper.HouseMapper" >
+  <resultMap id="BaseResultMap" type="com.easyrent.pojo.House" >
+    <id column="houseid" property="houseid" jdbcType="CHAR" />
+    <result column="housearea" property="housearea" jdbcType="INTEGER" />
+    <result column="housemin" property="housemin" jdbcType="INTEGER" />
+    <result column="housemax" property="housemax" jdbcType="INTEGER" />
+    <result column="houserent" property="houserent" jdbcType="INTEGER" />
+    <result column="housename" property="housename" jdbcType="VARCHAR" />
+    <result column="housedescribe" property="housedescribe" jdbcType="VARCHAR" />
+    <result column="houseaddress" property="houseaddress" jdbcType="VARCHAR" />
+    <result column="housetype" property="housetype" jdbcType="VARCHAR" />
+    <result column="houselimit" property="houselimit" jdbcType="INTEGER" />
+    <result column="houseroom" property="houseroom" jdbcType="CHAR" />
+    <result column="houserefund" property="houserefund" jdbcType="VARCHAR" />
+    <result column="housemainpic" property="housemainpic" jdbcType="VARCHAR" />
+    <result column="housestate" property="housestate" jdbcType="INTEGER" />
+    <result column="pic1" property="pic1" jdbcType="VARCHAR" />
+    <result column="pic2" property="pic2" jdbcType="VARCHAR" />
+    <result column="pic3" property="pic3" jdbcType="VARCHAR" />
+    <result column="pic4" property="pic4" jdbcType="VARCHAR" />
+    <result column="pic5" property="pic5" jdbcType="VARCHAR" />
+    <result column="pic6" property="pic6" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="CHAR" />
+    <result column="housecreate" property="housecreate" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    houseid, housearea, housemin, housemax, houserent, housename, housedescribe, houseaddress, 
+    housetype, houselimit, houseroom, houserefund, housemainpic, housestate, pic1, pic2, 
+    pic3, pic4, pic5, pic6, account, housecreate
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.easyrent.pojo.HouseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from house
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from house
+    where houseid = #{houseid,jdbcType=CHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from house
+    where houseid = #{houseid,jdbcType=CHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.easyrent.pojo.HouseExample" >
+    delete from house
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.easyrent.pojo.House" >
+    insert into house (houseid, housearea, housemin, 
+      housemax, houserent, housename, 
+      housedescribe, houseaddress, housetype, 
+      houselimit, houseroom, houserefund, 
+      housemainpic, housestate, pic1, 
+      pic2, pic3, pic4, pic5, 
+      pic6, account, housecreate
+      )
+    values (#{houseid,jdbcType=CHAR}, #{housearea,jdbcType=INTEGER}, #{housemin,jdbcType=INTEGER}, 
+      #{housemax,jdbcType=INTEGER}, #{houserent,jdbcType=INTEGER}, #{housename,jdbcType=VARCHAR}, 
+      #{housedescribe,jdbcType=VARCHAR}, #{houseaddress,jdbcType=VARCHAR}, #{housetype,jdbcType=VARCHAR}, 
+      #{houselimit,jdbcType=INTEGER}, #{houseroom,jdbcType=CHAR}, #{houserefund,jdbcType=VARCHAR}, 
+      #{housemainpic,jdbcType=VARCHAR}, #{housestate,jdbcType=INTEGER}, #{pic1,jdbcType=VARCHAR}, 
+      #{pic2,jdbcType=VARCHAR}, #{pic3,jdbcType=VARCHAR}, #{pic4,jdbcType=VARCHAR}, #{pic5,jdbcType=VARCHAR}, 
+      #{pic6,jdbcType=VARCHAR}, #{account,jdbcType=CHAR}, #{housecreate,jdbcType=DATE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.easyrent.pojo.House" >
+    insert into house
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="houseid != null" >
+        houseid,
+      </if>
+      <if test="housearea != null" >
+        housearea,
+      </if>
+      <if test="housemin != null" >
+        housemin,
+      </if>
+      <if test="housemax != null" >
+        housemax,
+      </if>
+      <if test="houserent != null" >
+        houserent,
+      </if>
+      <if test="housename != null" >
+        housename,
+      </if>
+      <if test="housedescribe != null" >
+        housedescribe,
+      </if>
+      <if test="houseaddress != null" >
+        houseaddress,
+      </if>
+      <if test="housetype != null" >
+        housetype,
+      </if>
+      <if test="houselimit != null" >
+        houselimit,
+      </if>
+      <if test="houseroom != null" >
+        houseroom,
+      </if>
+      <if test="houserefund != null" >
+        houserefund,
+      </if>
+      <if test="housemainpic != null" >
+        housemainpic,
+      </if>
+      <if test="housestate != null" >
+        housestate,
+      </if>
+      <if test="pic1 != null" >
+        pic1,
+      </if>
+      <if test="pic2 != null" >
+        pic2,
+      </if>
+      <if test="pic3 != null" >
+        pic3,
+      </if>
+      <if test="pic4 != null" >
+        pic4,
+      </if>
+      <if test="pic5 != null" >
+        pic5,
+      </if>
+      <if test="pic6 != null" >
+        pic6,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="housecreate != null" >
+        housecreate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="houseid != null" >
+        #{houseid,jdbcType=CHAR},
+      </if>
+      <if test="housearea != null" >
+        #{housearea,jdbcType=INTEGER},
+      </if>
+      <if test="housemin != null" >
+        #{housemin,jdbcType=INTEGER},
+      </if>
+      <if test="housemax != null" >
+        #{housemax,jdbcType=INTEGER},
+      </if>
+      <if test="houserent != null" >
+        #{houserent,jdbcType=INTEGER},
+      </if>
+      <if test="housename != null" >
+        #{housename,jdbcType=VARCHAR},
+      </if>
+      <if test="housedescribe != null" >
+        #{housedescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="houseaddress != null" >
+        #{houseaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="housetype != null" >
+        #{housetype,jdbcType=VARCHAR},
+      </if>
+      <if test="houselimit != null" >
+        #{houselimit,jdbcType=INTEGER},
+      </if>
+      <if test="houseroom != null" >
+        #{houseroom,jdbcType=CHAR},
+      </if>
+      <if test="houserefund != null" >
+        #{houserefund,jdbcType=VARCHAR},
+      </if>
+      <if test="housemainpic != null" >
+        #{housemainpic,jdbcType=VARCHAR},
+      </if>
+      <if test="housestate != null" >
+        #{housestate,jdbcType=INTEGER},
+      </if>
+      <if test="pic1 != null" >
+        #{pic1,jdbcType=VARCHAR},
+      </if>
+      <if test="pic2 != null" >
+        #{pic2,jdbcType=VARCHAR},
+      </if>
+      <if test="pic3 != null" >
+        #{pic3,jdbcType=VARCHAR},
+      </if>
+      <if test="pic4 != null" >
+        #{pic4,jdbcType=VARCHAR},
+      </if>
+      <if test="pic5 != null" >
+        #{pic5,jdbcType=VARCHAR},
+      </if>
+      <if test="pic6 != null" >
+        #{pic6,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=CHAR},
+      </if>
+      <if test="housecreate != null" >
+        #{housecreate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.easyrent.pojo.HouseExample" resultType="java.lang.Integer" >
+    select count(*) from house
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update house
+    <set >
+      <if test="record.houseid != null" >
+        houseid = #{record.houseid,jdbcType=CHAR},
+      </if>
+      <if test="record.housearea != null" >
+        housearea = #{record.housearea,jdbcType=INTEGER},
+      </if>
+      <if test="record.housemin != null" >
+        housemin = #{record.housemin,jdbcType=INTEGER},
+      </if>
+      <if test="record.housemax != null" >
+        housemax = #{record.housemax,jdbcType=INTEGER},
+      </if>
+      <if test="record.houserent != null" >
+        houserent = #{record.houserent,jdbcType=INTEGER},
+      </if>
+      <if test="record.housename != null" >
+        housename = #{record.housename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.housedescribe != null" >
+        housedescribe = #{record.housedescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houseaddress != null" >
+        houseaddress = #{record.houseaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="record.housetype != null" >
+        housetype = #{record.housetype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.houselimit != null" >
+        houselimit = #{record.houselimit,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseroom != null" >
+        houseroom = #{record.houseroom,jdbcType=CHAR},
+      </if>
+      <if test="record.houserefund != null" >
+        houserefund = #{record.houserefund,jdbcType=VARCHAR},
+      </if>
+      <if test="record.housemainpic != null" >
+        housemainpic = #{record.housemainpic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.housestate != null" >
+        housestate = #{record.housestate,jdbcType=INTEGER},
+      </if>
+      <if test="record.pic1 != null" >
+        pic1 = #{record.pic1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pic2 != null" >
+        pic2 = #{record.pic2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pic3 != null" >
+        pic3 = #{record.pic3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pic4 != null" >
+        pic4 = #{record.pic4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pic5 != null" >
+        pic5 = #{record.pic5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pic6 != null" >
+        pic6 = #{record.pic6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.account != null" >
+        account = #{record.account,jdbcType=CHAR},
+      </if>
+      <if test="record.housecreate != null" >
+        housecreate = #{record.housecreate,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update house
+    set houseid = #{record.houseid,jdbcType=CHAR},
+      housearea = #{record.housearea,jdbcType=INTEGER},
+      housemin = #{record.housemin,jdbcType=INTEGER},
+      housemax = #{record.housemax,jdbcType=INTEGER},
+      houserent = #{record.houserent,jdbcType=INTEGER},
+      housename = #{record.housename,jdbcType=VARCHAR},
+      housedescribe = #{record.housedescribe,jdbcType=VARCHAR},
+      houseaddress = #{record.houseaddress,jdbcType=VARCHAR},
+      housetype = #{record.housetype,jdbcType=VARCHAR},
+      houselimit = #{record.houselimit,jdbcType=INTEGER},
+      houseroom = #{record.houseroom,jdbcType=CHAR},
+      houserefund = #{record.houserefund,jdbcType=VARCHAR},
+      housemainpic = #{record.housemainpic,jdbcType=VARCHAR},
+      housestate = #{record.housestate,jdbcType=INTEGER},
+      pic1 = #{record.pic1,jdbcType=VARCHAR},
+      pic2 = #{record.pic2,jdbcType=VARCHAR},
+      pic3 = #{record.pic3,jdbcType=VARCHAR},
+      pic4 = #{record.pic4,jdbcType=VARCHAR},
+      pic5 = #{record.pic5,jdbcType=VARCHAR},
+      pic6 = #{record.pic6,jdbcType=VARCHAR},
+      account = #{record.account,jdbcType=CHAR},
+      housecreate = #{record.housecreate,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.easyrent.pojo.House" >
+    update house
+    <set >
+      <if test="housearea != null" >
+        housearea = #{housearea,jdbcType=INTEGER},
+      </if>
+      <if test="housemin != null" >
+        housemin = #{housemin,jdbcType=INTEGER},
+      </if>
+      <if test="housemax != null" >
+        housemax = #{housemax,jdbcType=INTEGER},
+      </if>
+      <if test="houserent != null" >
+        houserent = #{houserent,jdbcType=INTEGER},
+      </if>
+      <if test="housename != null" >
+        housename = #{housename,jdbcType=VARCHAR},
+      </if>
+      <if test="housedescribe != null" >
+        housedescribe = #{housedescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="houseaddress != null" >
+        houseaddress = #{houseaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="housetype != null" >
+        housetype = #{housetype,jdbcType=VARCHAR},
+      </if>
+      <if test="houselimit != null" >
+        houselimit = #{houselimit,jdbcType=INTEGER},
+      </if>
+      <if test="houseroom != null" >
+        houseroom = #{houseroom,jdbcType=CHAR},
+      </if>
+      <if test="houserefund != null" >
+        houserefund = #{houserefund,jdbcType=VARCHAR},
+      </if>
+      <if test="housemainpic != null" >
+        housemainpic = #{housemainpic,jdbcType=VARCHAR},
+      </if>
+      <if test="housestate != null" >
+        housestate = #{housestate,jdbcType=INTEGER},
+      </if>
+      <if test="pic1 != null" >
+        pic1 = #{pic1,jdbcType=VARCHAR},
+      </if>
+      <if test="pic2 != null" >
+        pic2 = #{pic2,jdbcType=VARCHAR},
+      </if>
+      <if test="pic3 != null" >
+        pic3 = #{pic3,jdbcType=VARCHAR},
+      </if>
+      <if test="pic4 != null" >
+        pic4 = #{pic4,jdbcType=VARCHAR},
+      </if>
+      <if test="pic5 != null" >
+        pic5 = #{pic5,jdbcType=VARCHAR},
+      </if>
+      <if test="pic6 != null" >
+        pic6 = #{pic6,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        account = #{account,jdbcType=CHAR},
+      </if>
+      <if test="housecreate != null" >
+        housecreate = #{housecreate,jdbcType=DATE},
+      </if>
+    </set>
+    where houseid = #{houseid,jdbcType=CHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.easyrent.pojo.House" >
+    update house
+    set housearea = #{housearea,jdbcType=INTEGER},
+      housemin = #{housemin,jdbcType=INTEGER},
+      housemax = #{housemax,jdbcType=INTEGER},
+      houserent = #{houserent,jdbcType=INTEGER},
+      housename = #{housename,jdbcType=VARCHAR},
+      housedescribe = #{housedescribe,jdbcType=VARCHAR},
+      houseaddress = #{houseaddress,jdbcType=VARCHAR},
+      housetype = #{housetype,jdbcType=VARCHAR},
+      houselimit = #{houselimit,jdbcType=INTEGER},
+      houseroom = #{houseroom,jdbcType=CHAR},
+      houserefund = #{houserefund,jdbcType=VARCHAR},
+      housemainpic = #{housemainpic,jdbcType=VARCHAR},
+      housestate = #{housestate,jdbcType=INTEGER},
+      pic1 = #{pic1,jdbcType=VARCHAR},
+      pic2 = #{pic2,jdbcType=VARCHAR},
+      pic3 = #{pic3,jdbcType=VARCHAR},
+      pic4 = #{pic4,jdbcType=VARCHAR},
+      pic5 = #{pic5,jdbcType=VARCHAR},
+      pic6 = #{pic6,jdbcType=VARCHAR},
+      account = #{account,jdbcType=CHAR},
+      housecreate = #{housecreate,jdbcType=DATE}
+    where houseid = #{houseid,jdbcType=CHAR}
+  </update>
+</mapper>

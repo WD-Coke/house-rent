@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd">
+
+    <context:component-scan base-package="com.easyrent.controller" />
+    <mvc:annotation-driven />
+    <context:property-placeholder location="classpath:conf/db.properties"></context:property-placeholder>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="prefix" value="/WEB-INF/pages/html/" />
+    <property name="suffix" value=".html" />
+        <property name="viewNames" value="error*"></property>
+        <property name="order" value="0"></property>
+    </bean>
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/pages/html/" />
+        <property name="suffix" value=".html" />
+        <property name="order" value="1"></property>
+    </bean>
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="maxUploadSize" value="25242280"></property>
+    </bean>
+   <!--静态资源配置-->
+    <mvc:resources mapping="/WEB-INF/**" location="/WEB-INF/"></mvc:resources>
+    <mvc:resources mapping="/upload/**" location="/upload/"></mvc:resources>
+    <mvc:resources mapping="/static/**" location="/static/"></mvc:resources>
+    <mvc:annotation-driven>
+        <!-- 消息转换器,解决responseBody返回中文乱码问题 -->
+        <mvc:message-converters register-defaults="true">
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="supportedMediaTypes" value="text/plain;charset=UTF-8" />
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <mvc:exclude-mapping path="/"/>
+            <mvc:exclude-mapping path="/content"/>
+            <mvc:exclude-mapping path="/register"/>
+            <mvc:exclude-mapping path="/login"/>
+            <mvc:exclude-mapping path="/search*"/>
+            <mvc:exclude-mapping path="/error/*"/>
+            <bean class="com.easyrent.interceptor.Loginintercetor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    <mvc:cors>
+        <mvc:mapping path="/**"
+                     allowed-origins="*"
+                     allowed-methods="POST, GET, OPTIONS, DELETE, PUT"
+                     allowed-headers="Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
+                     allow-credentials="true"/>
+    </mvc:cors>
+</beans>
